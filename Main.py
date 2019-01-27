@@ -71,7 +71,7 @@ while not closed:
     # Limit to 1 evolution per second
     clock.tick(1)
 
-    # update the screen with what we've drawn.
+    # update the screen
     pygame.display.flip()
     l.evolve_grid(grid)
     evolve_count+=1

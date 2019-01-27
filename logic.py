@@ -7,11 +7,11 @@ Author: Tom Easterbrook
 import random
 
 
-#This function generates a grid of cells in random states
+# This function generates a grid of cells in random states
 def generate_grid(columns, rows):
     return [[random.randint(0,1)for x in range(columns)] for y in range(rows)]
 
-#evolves the grid by applying a Game of Life Principles
+# evolves the grid by applying a Game of Life Principles
 def evolve_grid(grid):
    for column in range(len(grid)):
        for row in range(len(grid[column])):
