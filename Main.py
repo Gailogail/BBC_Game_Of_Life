@@ -3,11 +3,15 @@ An implementation of Conway's Game of Life for the BBC technical test using Pyth
 
 Author: Tom Easterbrook
 Assumptions:
+1. Although the algorithm can run on as much data as memory well allow I have created a 50x50
+sample to show the algorithms operation
+
+2. It is assumed that any cells outside this sample are dead
 
 This file is the main entry point to the program and controls the application interface
 '''
 
-import logic as l
+import logic
 import pygame
 
 # Define colours
@@ -23,7 +27,7 @@ CELL_H = 10
 GAP = 10
 
 # Generate  grid
-grid = l.generate_grid(25,25)
+grid = logic.generate_grid(25,25)
 
 # start pygame
 pygame.init()
@@ -73,7 +77,7 @@ while not closed:
 
     # update the screen
     pygame.display.flip()
-    l.evolve_grid(grid)
+    logic.evolve_grid(grid)
     evolve_count+=1
 
 pygame.quit()
