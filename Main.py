@@ -16,11 +16,11 @@ WHITE = (255, 255, 255)
 GREEN = (0, 255, 0)
 
 # This sets the WIDTH and HEIGHT of each cell
-CELL_W = 20
-CELL_H = 20
+CELL_W = 10
+CELL_H = 10
 
 # This sets the gap between each cell
-GAP = 20
+GAP = 10
 
 # Generate  grid
 grid = l.generate_grid(25,25)
@@ -29,12 +29,13 @@ grid = l.generate_grid(25,25)
 pygame.init()
 
 # Set the HEIGHT, WIDTH and title of the screen
-WINDOW_SIZE = [1000, 1000]
+WINDOW_SIZE = [600, 600]
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Conway's Game of Life")
 
 
 closed = False
+evolve_count = 1
 
 # Used to manage how fast the screen updates
 clock = pygame.time.Clock()
@@ -55,18 +56,24 @@ while not closed:
                  color = GREEN
             pygame.draw.rect(screen,
                             color,
-                            [(GAP + CELL_W) * column + GAP,
-                            (GAP + CELL_H) * row + GAP,
+                            [(GAP + CELL_W) * column + GAP+50,
+                            (GAP + CELL_H) * row + GAP+50,
                             CELL_W,
                             CELL_H])
+    font = pygame.font.SysFont("Arial", 15)
 
-    # Limit to 60 frames per second
+    # render labels
+    title_label = font.render("Conway's Game of Life!", 1, (255, 255, 0))
+    screen.blit(title_label, (250, 25))
+    evolve_label = font.render(" Evolution # "+str(evolve_count), 1, (255, 255, 0))
+    screen.blit(evolve_label, (250, 560))
+
+    # Limit to 1 evolution per second
     clock.tick(1)
 
-    # Go ahead and update the screen with what we've drawn.
+    # update the screen with what we've drawn.
     pygame.display.flip()
     l.evolve_grid(grid)
+    evolve_count+=1
 
-    # Be IDLE friendly. If you forget this line, the program will 'hang'
-    # on exit.
 pygame.quit()
