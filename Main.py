@@ -27,7 +27,7 @@ CELL_H = 10
 GAP = 10
 
 # Generate  grid
-grid = logic.generate_grid(25,25)
+grid = logic.generate_glider_grid()
 
 # start pygame
 pygame.init()
@@ -49,6 +49,10 @@ while not closed:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             closed = True
+        # Enables evolution by evolution debugging
+        if event.type == pygame.MOUSEBUTTONDOWN:
+            logic.evolve_grid(grid)
+            evolve_count += 1
         # Set the screen background
     screen.fill(BLACK)
 
@@ -77,7 +81,9 @@ while not closed:
 
     # update the screen
     pygame.display.flip()
-    logic.evolve_grid(grid)
-    evolve_count+=1
+
+    #logic.evolve_grid(grid)
+    #evolve_count += 1
+
 
 pygame.quit()

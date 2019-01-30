@@ -7,23 +7,38 @@ Author: Tom Easterbrook
 import random
 
 
-# This function generates a grid of cells in random states
+#  Generates a grid of cells in random states
 def generate_grid(columns, rows):
     return [[random.randint(0,1)for x in range(columns)] for y in range(rows)]
 
-# evolves the grid by applying a Game of Life Principles
+
+# Generate a seeded glider pattern within the grade for testing purposes only
+def generate_glider_grid():
+    grid = [[0 for x in range(25)] for y in range(25)]
+
+    grid[3][3]= 1
+    grid[3][4] = 1
+    grid[3][5] = 1
+
+    grid[2][5] = 1
+
+    grid[1][4] = 1
+
+    return  grid
+# Evolves the grid by applying a Game of Life Principles
 def evolve_grid(grid):
    for column in range(len(grid)):
        for row in range(len(grid[column])):
           neighbours = check_neighbours(grid,column,row)
           if grid[column][row] == 1:
-              # Over and under population
+              # Over and under population
               if neighbours<2 or neighbours>3:
                    grid[column][row] = 0
           else:
               # Creation of life
               if neighbours == 3:
                   grid[column][row]=1
+
    # Survival is default position if none of the above conditions are met
 
 
