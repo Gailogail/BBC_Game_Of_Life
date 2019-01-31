@@ -16,82 +16,75 @@ def generate_grid(columns, rows):
 def generate_glider_grid():
     grid = [[0 for x in range(25)] for y in range(25)]
 
-    grid[3][3]= 1
-    grid[3][4] = 1
-    grid[3][5] = 1
-
+    grid[2][3]= 1
+    grid[2][4] = 1
     grid[2][5] = 1
 
-    grid[1][4] = 1
+    grid[1][5] = 1
+
+    grid[0][4] = 1
 
     return  grid
 # Evolves the grid by applying a Game of Life Principles
 def evolve_grid(grid):
-   for column in range(len(grid)):
-       for row in range(len(grid[column])):
-          neighbours = check_neighbours(grid,column,row)
-          if grid[column][row] == 1:
+   for row in range(len(grid)):
+       for column in range(len(grid[row])):
+          neighbours = check_neighbours(grid, row, column)
+          if grid[row][column] == 1:
               # Over and under population
-              if neighbours<2 or neighbours>3:
-                   grid[column][row] = 0
+              if neighbours<2:
+                   grid[row][column] = 0
+              elif  neighbours > 3:
+                  grid[row][column] = 0
           else:
               # Creation of life
               if neighbours == 3:
-                  grid[column][row]=1
+                  grid[row][column]=1
 
    # Survival is default position if none of the above conditions are met
 
 
 # Checks how many neighbours of a specified cell are currently alive
-def check_neighbours(grid,start_column,start_row):
+def check_neighbours(grid, start_row, start_column):
     count = 0
-    #N
+    #N-S
     try:
-        if grid[start_column + 1][start_row] == 1:
-            count += 1
+        count += grid[start_row+1][start_column]
     except:
         pass
-    #S
     try:
-        if grid[start_column - 1][start_row] == 1:
-            count += 1
-    except:
-        pass
-    #E
-    try:
-        if grid[start_column][start_row+1] == 1:
-            count += 1
-    except:
-        pass
-    #W
-    try:
-        if grid[start_column][start_row-1] == 1:
-            count += 1
-    except:
-        pass
-    #NE
-    try:
-        if grid[start_column+1][start_row + 1] == 1:
-            count += 1
-    except:
-        pass
-    #SW
-    try:
-        if grid[start_column-1][start_row - 1] == 1:
-            count += 1
-    except:
-        pass
-    #NW
-    try:
-        if grid[start_column+1][start_row - 1] == 1:
-            count += 1
-    except:
-        pass
-    #NE
-    try:
-        if grid[start_column-1][start_row + 1] == 1:
-            count += 1
+        count += grid[start_row-1][start_column]
     except:
         pass
 
+    #W-E
+    try:
+        count += grid[start_row][start_column+1]
+    except:
+        pass
+    try:
+        count += grid[start_row][start_column -1]
+    except:
+        pass
+
+    #Nw-Sw
+    try:
+        count += grid[start_row+1][start_column-1]
+    except:
+        pass
+    try:
+        count += grid[start_row-1][start_column-1]
+    except:
+        pass
+
+     # NE-SE
+    try:
+        count += grid[start_row + 1][start_column + 1]
+    except:
+        pass
+    try:
+        count += grid[start_row - 1][start_column - 1]
+    except:
+        pass
     return count
+
