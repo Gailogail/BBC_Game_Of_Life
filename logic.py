@@ -3,7 +3,7 @@ This module contains the underlying logic for Conway's Game of Life
 
 Author: Tom Easterbrook
 '''
-
+import copy
 import random
 
 
@@ -16,75 +16,85 @@ def generate_grid(columns, rows):
 def generate_glider_grid():
     grid = [[0 for x in range(25)] for y in range(25)]
 
-    grid[2][3]= 1
+    grid[4][3]= 1
+    grid[4][4] = 1
+    grid[4][5] = 1
+
+    grid[3][5] = 1
+
     grid[2][4] = 1
-    grid[2][5] = 1
-
-    grid[1][5] = 1
-
-    grid[0][4] = 1
 
     return  grid
 # Evolves the grid by applying a Game of Life Principles
-def evolve_grid(grid):
-   for row in range(len(grid)):
-       for column in range(len(grid[row])):
-          neighbours = check_neighbours(grid, row, column)
-          if grid[row][column] == 1:
+def evolve_grid(current_grid):
+   next_evolution = copy.deepcopy(current_grid)
+   for row in range(len(current_grid)):
+       for column in range(len(current_grid[row])):
+          neighbours = check_neighbours(current_grid, row, column)
+          if current_grid[row][column] == 1:
               # Over and under population
               if neighbours<2:
-                   grid[row][column] = 0
-              elif  neighbours > 3:
-                  grid[row][column] = 0
+                   next_evolution[row][column] = 0
+              elif  neighbours> 3:
+                  next_evolution[row][column] = 0
+
           else:
               # Creation of life
               if neighbours == 3:
-                  grid[row][column]=1
+                  next_evolution[row][column]=1
+          # Survival is default position if none of the above conditions are met
+   return next_evolution
 
-   # Survival is default position if none of the above conditions are met
+
 
 
 # Checks how many neighbours of a specified cell are currently alive
 def check_neighbours(grid, start_row, start_column):
     count = 0
-    #N-S
+    #N
     try:
         count += grid[start_row+1][start_column]
+    except IndexError:
+        pass
+   #S
+    try:
+        if start_row>0:
+           count += grid[start_row-1][start_column]
+    except IndexError:
+        pass
+    #E
+    try:
+        count += grid[start_row][start_column + 1]
     except:
         pass
+    #W
     try:
-        count += grid[start_row-1][start_column]
+        if start_column>0:
+             count += grid[start_row][start_column - 1]
     except:
+        pass
+    #NE
+    try:
+        count += grid[start_row + 1][start_column +1]
+    except:
+        pass
+    #NW
+    try:
+        if start_column>0:
+            count += grid[start_row +1][start_column - 1]
+    except:
+        pass
+    #SE
+    try:
+        if start_row>0:
+           count += grid[start_row-1][start_column+1]
+    except IndexError:
+        pass
+    #SW
+    try:
+        if (start_row>0) & (start_column>0):
+           count += grid[start_row-1][start_column-1]
+    except IndexError:
         pass
 
-    #W-E
-    try:
-        count += grid[start_row][start_column+1]
-    except:
-        pass
-    try:
-        count += grid[start_row][start_column -1]
-    except:
-        pass
-
-    #Nw-Sw
-    try:
-        count += grid[start_row+1][start_column-1]
-    except:
-        pass
-    try:
-        count += grid[start_row-1][start_column-1]
-    except:
-        pass
-
-     # NE-SE
-    try:
-        count += grid[start_row + 1][start_column + 1]
-    except:
-        pass
-    try:
-        count += grid[start_row - 1][start_column - 1]
-    except:
-        pass
     return count
-

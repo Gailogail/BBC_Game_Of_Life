@@ -51,7 +51,7 @@ while not closed:
             closed = True
         # Enables evolution by evolution debugging
         if event.type == pygame.MOUSEBUTTONDOWN:
-            logic.evolve_grid(grid)
+            grid = logic.evolve_grid(grid)
             evolve_count += 1
         # Set the screen background
     screen.fill(BLACK)
