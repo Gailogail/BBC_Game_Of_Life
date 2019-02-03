@@ -3,12 +3,14 @@ An implementation of Conway's Game of Life for the BBC technical test using Pyth
 
 Author: Tom Easterbrook
 Assumptions:
+
 1. Although the algorithm can run on as much data as memory well allow I have created a 50x50
 sample to show the algorithms operation
 
 2. It is assumed that any cells outside this sample are dead
 
 This file is the main entry point to the program and controls the application interface
+
 '''
 
 import logic
@@ -25,11 +27,13 @@ CELL_H = 10
 
 # This sets the gap between each cell
 GAP = 10
+# Load font
+font = pygame.font.SysFont("Arial", 15)
 
 # Generate  grid
-grid = logic.generate_glider_grid()
+grid = logic.generate_grid(25, 25)
 
-# start pygame
+# Start pygame
 pygame.init()
 
 # Set the HEIGHT, WIDTH and title of the screen
@@ -49,10 +53,14 @@ while not closed:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             closed = True
-        # Enables evolution by evolution debugging
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            grid = logic.evolve_grid(grid)
-            evolve_count += 1
+            # Uncomment to enable evolution by evolution debugging
+            '''
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                grid = logic.evolve_grid(grid)
+                evolve_count += 1
+            '''
+
+            # Set the screen background
         # Set the screen background
     screen.fill(BLACK)
 
@@ -61,16 +69,15 @@ while not closed:
         for column in range(len(grid[row])):
             color = WHITE
             if grid[row][column] == 1:
-                 color = GREEN
+                color = GREEN
             pygame.draw.rect(screen,
                             color,
                             [(GAP + CELL_W) * column + GAP+50,
                             (GAP + CELL_H) * row + GAP+50,
                             CELL_W,
                             CELL_H])
-    font = pygame.font.SysFont("Arial", 15)
 
-    # render labels
+    # Render labels
     title_label = font.render("Conway's Game of Life!", 1, (255, 255, 0))
     screen.blit(title_label, (250, 25))
     evolve_label = font.render(" Evolution # "+str(evolve_count), 1, (255, 255, 0))
@@ -82,8 +89,9 @@ while not closed:
     # update the screen
     pygame.display.flip()
 
-    #logic.evolve_grid(grid)
-    #evolve_count += 1
+    # Evolve grid
+    grid = logic.evolve_grid(grid)
+    evolve_count += 1
 
 
 pygame.quit()
