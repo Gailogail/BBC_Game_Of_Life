@@ -21,7 +21,7 @@ CELL_W = 10
 CELL_H = 10
 
 # This sets the gap between each cell
-GAP = 10
+GAP = 1
 
 # Generate  grid
 grid = logic.generate_grid(25, 25)
@@ -39,7 +39,7 @@ ALIVE_CELL = pygame.color.Color("Green")
 LABEL_TEXT = pygame.color.Color("Yellow")
 
 # Set the HEIGHT, WIDTH and title of the screen
-WINDOW_SIZE = [600, 600]
+WINDOW_SIZE = [350, 350]
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Conway's Game of Life")
 
@@ -73,16 +73,16 @@ while not closed:
                 color = ALIVE_CELL
             pygame.draw.rect(screen,
                              color,
-                             [(GAP + CELL_W) * column + GAP + 50,
-                              (GAP + CELL_H) * row + GAP + 50,
+                             [(GAP + CELL_W) * column + GAP + 35 ,
+                              (GAP + CELL_H) * row + GAP + 35 ,
                               CELL_W,
                               CELL_H])
 
     # Render labels
     title_label = font.render("Conway's Game of Life!", 1, LABEL_TEXT)
-    screen.blit(title_label, (250, 25))
+    screen.blit(title_label, (125, 10))
     evolve_label = font.render(" Evolution # " + str(evolve_count), 1, LABEL_TEXT)
-    screen.blit(evolve_label, (250, 560))
+    screen.blit(evolve_label, (125, 320))
 
     # Limit to 1 evolution per second
     clock.tick(1)
