@@ -60,46 +60,46 @@ def evolve_grid(current_grid):
 # Checks how many neighbours of a specified cell are currently alive
 def check_neighbours(grid, start_row, start_column):
     count = 0
-    # N
+    # North
     try:
         count += grid[start_row + 1][start_column]
     except IndexError:
         pass
-    # S
+    # South
     try:
         if start_row > 0:
             count += grid[start_row - 1][start_column]
     except IndexError:
         pass
-    # E
+    # East
     try:
         count += grid[start_row][start_column + 1]
     except IndexError:
         pass
-    # W
+    # West
     try:
         if start_column > 0:
             count += grid[start_row][start_column - 1]
     except IndexError:
         pass
-    # NE
+    # North East
     try:
         count += grid[start_row + 1][start_column + 1]
     except IndexError:
         pass
-    # NW
+    # North West
     try:
         if start_column > 0:
             count += grid[start_row + 1][start_column - 1]
     except IndexError:
         pass
-    # SE
+    # South East
     try:
         if start_row > 0:
             count += grid[start_row - 1][start_column + 1]
     except IndexError:
         pass
-    # SW
+    # South West
     try:
         if (start_row > 0) & (start_column > 0):
             count += grid[start_row - 1][start_column - 1]
