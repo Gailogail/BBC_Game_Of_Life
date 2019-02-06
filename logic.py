@@ -64,6 +64,7 @@ def evolve_grid(current_grid):
 
 
 # Checks how many neighbours of a specified cell are currently alive
+# I appreciate this function is repetitive and could be improved
 def check_neighbours(grid, start_row, start_column):
     count = 0
     # North
