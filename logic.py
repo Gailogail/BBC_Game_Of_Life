@@ -7,6 +7,7 @@ import copy
 import random
 
 
+# A structure to represent the possible states of a cell
 class CellState:
     DEAD = 0
     ALIVE = 1

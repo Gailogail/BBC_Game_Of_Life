@@ -13,8 +13,9 @@ This file is the main entry point to the program and controls the application in
 
 """
 
-import logic
 import pygame
+
+import logic
 
 # This sets the WIDTH and HEIGHT of each cell
 CELL_W = 10
@@ -73,8 +74,8 @@ while not closed:
                 color = ALIVE_CELL
             pygame.draw.rect(screen,
                              color,
-                             [(GAP + CELL_W) * column + GAP + 35 ,
-                              (GAP + CELL_H) * row + GAP + 35 ,
+                             [(GAP + CELL_W) * column + GAP + 35,
+                              (GAP + CELL_H) * row + GAP + 35,
                               CELL_W,
                               CELL_H])
 
