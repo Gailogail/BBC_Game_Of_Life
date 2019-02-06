@@ -16,11 +16,6 @@ This file is the main entry point to the program and controls the application in
 import logic
 import pygame
 
-# Define colours
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-
 # This sets the WIDTH and HEIGHT of each cell
 CELL_W = 10
 CELL_H = 10
@@ -36,6 +31,12 @@ pygame.init()
 
 # Load font
 font = pygame.font.SysFont("Arial", 15)
+
+# Define colours
+BACKGROUND = pygame.color.Color("Black")
+DEAD_CELL = pygame.color.Color("White")
+ALIVE_CELL = pygame.color.Color("Green")
+LABEL_TEXT = pygame.color.Color("Yellow")
 
 # Set the HEIGHT, WIDTH and title of the screen
 WINDOW_SIZE = [600, 600]
@@ -62,14 +63,14 @@ while not closed:
 
             # Set the screen background
         # Set the screen background
-    screen.fill(BLACK)
+    screen.fill(BACKGROUND)
 
     # Draw the grid
     for row in range(len(grid)):
         for column in range(len(grid[row])):
-            color = WHITE
+            color = DEAD_CELL
             if grid[row][column] == logic.CellState.ALIVE:
-                color = GREEN
+                color = ALIVE_CELL
             pygame.draw.rect(screen,
                              color,
                              [(GAP + CELL_W) * column + GAP + 50,
@@ -78,9 +79,9 @@ while not closed:
                               CELL_H])
 
     # Render labels
-    title_label = font.render("Conway's Game of Life!", 1, (255, 255, 0))
+    title_label = font.render("Conway's Game of Life!", 1, LABEL_TEXT)
     screen.blit(title_label, (250, 25))
-    evolve_label = font.render(" Evolution # " + str(evolve_count), 1, (255, 255, 0))
+    evolve_label = font.render(" Evolution # " + str(evolve_count), 1, LABEL_TEXT)
     screen.blit(evolve_label, (250, 560))
 
     # Limit to 1 evolution per second
