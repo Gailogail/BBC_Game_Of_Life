@@ -27,14 +27,15 @@ CELL_H = 10
 
 # This sets the gap between each cell
 GAP = 10
-# Load font
-font = pygame.font.SysFont("Arial", 15)
 
 # Generate  grid
 grid = logic.generate_grid(25, 25)
 
 # Start pygame
 pygame.init()
+
+# Load font
+font = pygame.font.SysFont("Arial", 15)
 
 # Set the HEIGHT, WIDTH and title of the screen
 WINDOW_SIZE = [600, 600]
