@@ -1,4 +1,4 @@
-'''
+"""
 An implementation of Conway's Game of Life for the BBC technical test using Python 3 and Pygame
 
 Author: Tom Easterbrook
@@ -11,7 +11,7 @@ sample to show the algorithms operation
 
 This file is the main entry point to the program and controls the application interface
 
-'''
+"""
 
 import logic
 import pygame
@@ -42,7 +42,6 @@ WINDOW_SIZE = [600, 600]
 screen = pygame.display.set_mode(WINDOW_SIZE)
 pygame.display.set_caption("Conway's Game of Life")
 
-
 closed = False
 evolve_count = 1
 
@@ -72,16 +71,16 @@ while not closed:
             if grid[row][column] == 1:
                 color = GREEN
             pygame.draw.rect(screen,
-                            color,
-                            [(GAP + CELL_W) * column + GAP+50,
-                            (GAP + CELL_H) * row + GAP+50,
-                            CELL_W,
-                            CELL_H])
+                             color,
+                             [(GAP + CELL_W) * column + GAP + 50,
+                              (GAP + CELL_H) * row + GAP + 50,
+                              CELL_W,
+                              CELL_H])
 
     # Render labels
     title_label = font.render("Conway's Game of Life!", 1, (255, 255, 0))
     screen.blit(title_label, (250, 25))
-    evolve_label = font.render(" Evolution # "+str(evolve_count), 1, (255, 255, 0))
+    evolve_label = font.render(" Evolution # " + str(evolve_count), 1, (255, 255, 0))
     screen.blit(evolve_label, (250, 560))
 
     # Limit to 1 evolution per second
@@ -93,6 +92,5 @@ while not closed:
     # Evolve grid
     grid = logic.evolve_grid(grid)
     evolve_count += 1
-
 
 pygame.quit()

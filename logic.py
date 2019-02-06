@@ -1,27 +1,37 @@
-'''
+"""
 This module contains the underlying logic for Conway's Game of Life
 
 Author: Tom Easterbrook
-'''
+"""
 import copy
 import random
 
 
 #  Generates a grid of cells in random states
 def generate_grid(rows, columns):
-    return [[random.randint(0, 1) for x in range(columns)] for y in range(rows)]
+    grid = []
+    for x in range(rows):
+        row = []
+        for y in range(columns):
+            row.append(random.randint(0, 1))
+        grid.append(row)
+    return grid
 
 
 # Generate a seeded glider pattern on the grid ( testing purposes only)
-def generate_glider_grid():
-    grid = [[0 for x in range(25)] for y in range(25)]
-
+def generate_glider_grid(rows, columns):
+    # Create blank grid
+    grid = []
+    for x in range(rows):
+        row = []
+        for y in range(columns):
+            row.append(random.randint(0, 1))
+        grid.append(row)
+    # Seed glider pattern
     grid[4][3] = 1
     grid[4][4] = 1
     grid[4][5] = 1
-
     grid[3][5] = 1
-
     grid[2][4] = 1
 
     return grid
