@@ -68,7 +68,7 @@ while not closed:
     for row in range(len(grid)):
         for column in range(len(grid[row])):
             color = WHITE
-            if grid[row][column] == 1:
+            if grid[row][column] == logic.CellState.ALIVE:
                 color = GREEN
             pygame.draw.rect(screen,
                              color,

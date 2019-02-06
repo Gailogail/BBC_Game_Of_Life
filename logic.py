@@ -7,13 +7,18 @@ import copy
 import random
 
 
+class CellState:
+    DEAD = 0
+    ALIVE = 1
+
+
 #  Generates a grid of cells in random states
 def generate_grid(rows, columns):
     grid = []
     for x in range(rows):
         row = []
         for y in range(columns):
-            row.append(random.randint(0, 1))
+            row.append(random.randint(CellState.DEAD, CellState.ALIVE))
         grid.append(row)
     return grid
 
@@ -25,14 +30,14 @@ def generate_glider_grid(rows, columns):
     for x in range(rows):
         row = []
         for y in range(columns):
-            row.append(random.randint(0, 1))
+            row.append(CellState.DEAD)
         grid.append(row)
     # Seed glider pattern
-    grid[4][3] = 1
-    grid[4][4] = 1
-    grid[4][5] = 1
-    grid[3][5] = 1
-    grid[2][4] = 1
+    grid[4][3] = CellState.ALIVE
+    grid[4][4] = CellState.ALIVE
+    grid[4][5] = CellState.ALIVE
+    grid[3][5] = CellState.ALIVE
+    grid[2][4] = CellState.ALIVE
 
     return grid
 
@@ -43,16 +48,16 @@ def evolve_grid(current_grid):
     for row in range(len(current_grid)):
         for column in range(len(current_grid[row])):
             neighbours = check_neighbours(current_grid, row, column)
-            if current_grid[row][column] == 1:
+            if current_grid[row][column] == CellState.ALIVE:
                 # Over and under population
                 if neighbours < 2:
-                    next_evolution[row][column] = 0
+                    next_evolution[row][column] = CellState.DEAD
                 elif neighbours > 3:
-                    next_evolution[row][column] = 0
+                    next_evolution[row][column] = CellState.DEAD
             else:
                 # Creation of life
                 if neighbours == 3:
-                    next_evolution[row][column] = 1
+                    next_evolution[row][column] = CellState.ALIVE
             # Survival is default position if none of the above conditions are met
     return next_evolution
 
